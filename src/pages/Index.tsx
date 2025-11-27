@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState('dashboard');
+  const [activeSection, setActiveSection] = useState('cabinet');
 
   const newsItems = [
     { id: 1, title: 'Обновление корпоративной политики', date: '25 ноября 2025', category: 'Кадры', priority: 'high' },
