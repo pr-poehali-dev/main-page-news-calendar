@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState('cabinet');
+  const [activeSection, setActiveSection] = useState('dashboard');
 
   const newsItems = [
     { id: 1, title: 'Обновление корпоративной политики', date: '25 ноября 2025', category: 'Кадры', priority: 'high' },
@@ -51,7 +51,7 @@ const Index = () => {
 
   const renderDashboard = () => (
     <div className="space-y-6">
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 gap-6">
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -62,19 +62,6 @@ const Index = () => {
           <CardContent>
             <div className="text-3xl font-bold">12</div>
             <p className="text-sm text-muted-foreground">За последние 24 часа</p>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">Активные тикеты</CardTitle>
-              <Icon name="Ticket" className="text-primary" size={24} />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">8</div>
-            <p className="text-sm text-muted-foreground">Требуют внимания</p>
           </CardContent>
         </Card>
 
@@ -218,6 +205,47 @@ const Index = () => {
 
   const renderPersonalCabinet = () => (
     <div className="space-y-6">
+      <div className="grid md:grid-cols-3 gap-6 mb-6">
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg">Активные тикеты</CardTitle>
+              <Icon name="Ticket" className="text-primary" size={24} />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">{myTickets.length}</div>
+            <p className="text-sm text-muted-foreground">Требуют внимания</p>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg">Отчётов готово</CardTitle>
+              <Icon name="FileCheck" className="text-primary" size={24} />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">{myReports.filter(r => r.status === 'Готов').length}</div>
+            <p className="text-sm text-muted-foreground">Доступны для скачивания</p>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg">Компании</CardTitle>
+              <Icon name="Building2" className="text-primary" size={24} />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">{myReports.length}</div>
+            <p className="text-sm text-muted-foreground">ООО в управлении</p>
+          </CardContent>
+        </Card>
+      </div>
+
       <Tabs defaultValue="tickets" className="w-full">
         <TabsList className="grid w-full max-w-md grid-cols-2">
           <TabsTrigger value="tickets">Мои тикеты</TabsTrigger>
