@@ -44,6 +44,13 @@ const Index = () => {
     { id: 2, title: 'Консультация по договору', status: 'Открыт', priority: 'high', created: '25.11.2025' },
   ];
 
+  const closedTickets = [
+    { id: 3, title: 'Получение справки 2-НДФЛ', status: 'Закрыт', priority: 'low', created: '20.11.2025', closed: '22.11.2025', resolution: 'Справка предоставлена' },
+    { id: 4, title: 'Вопрос по начислению премии', status: 'Закрыт', priority: 'medium', created: '18.11.2025', closed: '19.11.2025', resolution: 'Разъяснение дано' },
+    { id: 5, title: 'Проблема с доступом к системе', status: 'Закрыт', priority: 'high', created: '15.11.2025', closed: '15.11.2025', resolution: 'Доступ восстановлен' },
+    { id: 6, title: 'Корректировка табеля', status: 'Закрыт', priority: 'medium', created: '10.11.2025', closed: '12.11.2025', resolution: 'Табель исправлен' },
+  ];
+
   const myReports = [
     { id: 1, name: 'ООО "Техника Плюс"', period: 'Ноябрь 2025', status: 'Готов' },
     { id: 2, name: 'ООО "Строймонтаж"', period: 'Ноябрь 2025', status: 'В процессе' },
@@ -247,8 +254,9 @@ const Index = () => {
       </div>
 
       <Tabs defaultValue="tickets" className="w-full">
-        <TabsList className="grid w-full max-w-md grid-cols-2">
-          <TabsTrigger value="tickets">Мои тикеты</TabsTrigger>
+        <TabsList className="grid w-full max-w-lg grid-cols-3">
+          <TabsTrigger value="tickets">Активные тикеты</TabsTrigger>
+          <TabsTrigger value="closed">История</TabsTrigger>
           <TabsTrigger value="reports">Отчёты по ООО</TabsTrigger>
         </TabsList>
 
@@ -313,6 +321,44 @@ const Index = () => {
                       </Badge>
                       <Badge variant={ticket.priority === 'high' ? 'destructive' : 'outline'} className="text-xs">
                         {ticket.priority === 'high' ? 'Высокий' : 'Средний'}
+                      </Badge>
+                    </div>
+                  </div>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="closed" className="space-y-4">
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-semibold">История закрытых тикетов</h3>
+            <Badge variant="outline">{closedTickets.length} завершено</Badge>
+          </div>
+
+          <div className="space-y-3">
+            {closedTickets.map((ticket) => (
+              <Card key={ticket.id} className="hover:shadow-md transition-shadow">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <CardTitle className="text-base mb-2">{ticket.title}</CardTitle>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <Icon name="Calendar" size={12} />
+                          <span>Создан: {ticket.created}</span>
+                          <span>•</span>
+                          <span>Закрыт: {ticket.closed}</span>
+                        </div>
+                        <div className="flex items-start gap-2 text-xs">
+                          <Icon name="CheckCircle2" size={12} className="text-green-600 mt-0.5" />
+                          <span className="text-muted-foreground">{ticket.resolution}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-2 items-end">
+                      <Badge variant="outline" className="text-xs">
+                        {ticket.status}
                       </Badge>
                     </div>
                   </div>
